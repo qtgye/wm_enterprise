@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dashboard - Wattsmart</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/icon" href="http://wattsmart.ph/assets/images/favicon2.ico">	
+
+	<!-- Bootstrap CSS -->
+	<link media="all" type="text/css" rel="stylesheet" href="libs/bootstrap.min.css">
+	<!-- <link media="all" rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css"> -->
+	<!-- <link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/assets/bootstrap/css/bootstrap-theme.min.css"> -->
+	
+	<link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/build/css/main.css">
+	<link media="all" rel="stylesheet" href="css/dashboard.css">
+
+	<link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/build/css/carousel.css">
+
+	<link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/build/css/animate.css">
+
+	<!-- Bootstrap Datepicker CSS for modal -->
+	<link rel="stylesheet" href="libs/datepicker/css/datepicker.css">
+	
+
+
+	<!-- Datepicker CSS -->
+	<!-- <link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/assets/datepicker/css/datepicker.css"> -->
+
+	<link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/build/css/owl.carousel.css">
+
+	<link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/build/css/owl.transitions.css">
+
+	<link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/build/css/owl.theme.css">
+
+	<link media="all" type="text/css" rel="stylesheet" href="http://wattsmart.ph/build/css/live_monitoring_buttons.css">
+
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="" href="http://wattsmart.ph" style="max-height: 10px !important;">
+					<!-- <img class="brand-logo" src="http://wattsmart.ph/assets/images/wattsmart_beta.png" class="brand-logo" alt="logo">  -->
+					<span class="brand-logo" style="display: inline-table; vertical-align: middle;"><h3 style="color:white;margin: 0.15em 0 0 0; font-size: 1.5em;padding-bottom: 15px;">Sample Logo</h3></span>
+				</a>
+
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="http://wattsmart.ph/about">About us</a></li>
+						<li><a href="http://wattsmart.ph/products">Products</a></li>
+						<li><a href="http://wattsmart.ph/contact">Contact Us</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+
+						<li><a href="http://wattsmart.ph/dashboard">Dashboard</a></li>
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Username <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="http://wattsmart.ph/settings">Settings</a></li>
+								<li><a href="http://wattsmart.ph/userdata">Admin</a></li>
+								<li class="divider"></li>
+								<li><a href="http://wattsmart.ph/logout">Logout</a></li>
+							</ul>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		
+
+		<div class="container-fluid dashboard">	
+
+			<!-- sidebar background -->
+			<div class="col-xs-3 dashboard-sidebar-bg"></div>		
+
+			<!-- history -->
+			<div class="row">
+				<div class="col-sm-3 dashboard-sidebar dashboard-sidebar-welcome">					
+					<div class="dashboard-text-block dashboard-welcome">
+						<h2>Welcome, <div id="username">User Name</div> </h2>
+					</div>
+					<div class="dashboard-text-block">
+						<div class="dashboard-total">
+							<p>Your total energy consumption today is</p>
+							<span class="dashboard-text-md">
+								<span class="dashboard-text-lg"><strong id="totalConsumptionToday">5</strong></span> <span>kWh</span3>
+							</span>
+							<span class="visible-xs-inline-block"> - </span>
+							<br class="hidden-xs">
+							<span class="dashboard-text-md">
+								<span>Php</span> <span class="dashboard-text-lg"><strong id="totalCostToday">50.00</strong></span>
+							</span>							
+						</div>			
+					</div>
+				</div>
+				<div class="col-sm-9 content">
+
+					<div class="content-title">
+						<h2> Energy Consumption History </h2>
+						<div>
+							<!-- Each bar represents your energy consumption for the period below.: -->
+						</div>
+					</div>
+					<div class="chart" id="history-chart" style="height: 350px; margin: 0 auto">
+						<div style="width:100%;height:100%;position:relative;text-align:center;background:rgba(0,0,255,0.1)">
+							<div style="position: absolute; width: 100%;bottom: 0; padding: 10px; text-align:center" class="text-primary">Loading Chart...</div>
+						</div>	
+					</div>
+					<div class="history-chart-buttons-block">
+						Show my data for
+						<div class="history-chart-buttons">
+							<label for="showDay">
+								<input type="radio" name="seriesData" id="showDay" class="hide">
+								<span class="btn btn-default">
+									TODAY
+								</span>
+							</label>
+							<label for="showMOnth">
+								<input type="radio" name="seriesData" id="showMOnth" class="hide" checked>
+								<span class="btn btn-default">
+									THIS MONTH
+								</span>
+							</label>
+							<label for="showYear">
+								<input type="radio" name="seriesData" id="showYear" class="hide">
+								<span class="btn btn-default">
+									THIS YEAR
+								</span>
+							</label>
+							<label for="selectRange" data-toggle="modal" data-target="#selectPeriodModal">								
+								<span id="selectPeriodBtn" class="btn btn-default">
+									<span>
+										<span class="glyphicon glyphicon-calendar text-primary"></span>
+										<em class="text-primary">Advance Select</em>
+									</span>
+								</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- ranking -->
+			<div class="row appliance-ranking">
+				<div class="col-sm-9 content">
+
+					<div class="content-title">
+						<h2> Appliance Ranking </h2>
+						<div>
+							<!-- Here are the top 3 appliances that use the most of your power: -->
+						</div>
+					</div>
+					<!-- end content-title -->
+
+					<div class="content-body">
+						<div class="rank-list">		
+							<!-- rank list generated by php -->
+						</div>	
+						<div class="show-appliances-button">
+							<div style="margin: 10px 0" class="btn btn-primary" data-toggle="collapse" data-target=".itemsList">
+								SHOW/HIDE LIST OF APPLIANCES
+							</div>
+						</div>						
+					</div>
+					<!-- end content body -->
+				</div>
+				<div class="col-sm-3 dashboard-sidebar collapse itemsList">
+					<!-- list of all appliances ranked acc. to energy consumption cost -->
+					<div class="appliances-table">
+						<table class="table" id="appliances">	
+							<thead>
+								<td></td>
+								<td><div><em><small>Estimated Cost (Php)</small></em></div></td>
+								<td></td>
+							</thead>											
+						</table>
+						<div class="visible-xs-block" style="padding: 20px 0;">
+							<div class="btn btn-default" data-toggle="collapse" data-target=".itemsList">
+								HIDE LIST
+							</div>
+						</div>
+					</div>
+					<!-- close appliances table -->
+				</div>
+			</div>
+
+			<!-- realtime monitor -->
+			<div class="row">
+				<div class="col-sm-3 dashboard-sidebar">
+					<div class="dashboard-text-block">
+						<span class="dashboard-text-xl" id="totalRunning">8</span>
+						<br class="hidden-xs">
+						<span class="dashboard-text-lg">Appliances</span>
+						<div class="dashboard-text-default">are currently running</div>
+					</div>					
+				</div>
+				<div class="col-sm-9 content">
+
+					<div class="content-title">
+						<h2>Power Consumption</h2>
+						<div>
+							<!-- Your current power consumption every 10 seconds: -->
+						</div>
+					</div>
+					<!-- end content-title -->
+
+					<div class="content-body">
+						<div class="chart" id="realtime-chart">
+							<div style="width:100%;height:100%;position:relative;text-align:center;background:rgba(0,0,255,0.1)">
+								<div style="position: absolute; width: 100%;bottom: 0; padding: 10px; text-align:center" class="text-primary">Loading Chart...</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- recommendations -->
+			<div class="row hide">
+				<div class="col-sm-3 dashboard-sidebar hidden-xs">
+					
+				</div>
+				<div class="col-sm-9 content">
+
+					<div class="content-title">
+						<h2>Recommendations</h2>
+						<div>
+							Save more money through these energy saving tips:
+						</div>
+					</div>
+					<!-- end content-title -->
+
+					<div class="content-body">
+						<div class="recommendations">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<img src="" alt="">
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam velit alias perspiciatis incidunt itaque temporibus distinctio nemo sint accusamus debitis cumque nesciunt illo, facilis architecto quo laboriosam numquam quas animi.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<img src="" alt="">
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam velit alias perspiciatis incidunt itaque temporibus distinctio nemo sint accusamus debitis cumque nesciunt illo, facilis architecto quo laboriosam numquam quas animi.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<img src="" alt="">
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam velit alias perspiciatis incidunt itaque temporibus distinctio nemo sint accusamus debitis cumque nesciunt illo, facilis architecto quo laboriosam numquam quas animi.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+		
+
+		<!-- selectRangeModal -->
+		<div class="modal fade dashboard" id="selectPeriodModal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a href="#" class="glyphicon glyphicon-remove text-muted pull-right" data-dismiss="modal"></a>
+						<h3>Advance Select</h3>						
+					</div>
+					<!-- end modal heading -->
+					<div class="modal-body">
+
+						<div class="panel-group" id="selectTypeAccordion">
+
+							<div class="panel">
+								<h3 class="text-primary" data-toggle="collapse" data-parent="#selectTypeAccordion" data-target="#selectApplianceAccordion">Select Appliance</h3>
+
+								<div class="collapse in" id="selectApplianceAccordion">
+									
+									<div class="form-group">
+										<div class="input-group col-xs-10">	
+											<select name="applianceSelected" id="applianceSelected" class="form-control input">
+												<!-- populate with appliances list -->
+											</select>												
+											<div class="input-group-addon btn btn-default btn-dark periodSelectBtn" id="dateSelectBtn">
+												<span>View Data</span>
+											</div>
+										</div>	
+									</div>
+								</div>
+							</div>				
+							<!-- end select appliance panel -->
+
+							<div class="panel">
+								<h3 class="text-primary" data-toggle="collapse" data-parent="#selectTypeAccordion" data-target="#selectPeriodAccordionContainer">Select History Period</h3>
+							
+								<div id="selectPeriodAccordionContainer" class="collapse">
+									<div class="panel-group collapse in" id="selectPeriodAccordion">
+										<div class="panel panel-default">
+											<div class="panel-heading" data-parent="#selectPeriodAccordion" data-toggle="collapse" data-target="#selectPeriodDate">
+												Select Date
+											</div>
+											<div class="panel-collapse collapse" id="selectPeriodDate">
+												<div class="panel-body historyPeriodSelect" data-period="date" >
+													<div class="form-group">
+														<div class="input-group col-xs-10">													
+															<input id="dateSelected" class="form-control input" type="text" placeholder="dd/mm/yyyy"></input>
+															<div class="input-group-addon btn btn-default btn-dark periodSelectBtn" id="dateSelectBtn">
+																<span>View Data</span>
+															</div>
+														</div>	
+													</div>
+													<p class="error-message collapse"><small><em class="text-danger">Please provide a valid input in format: <strong class="text-danger">dd/mm/yyyy</strong> </em></small></p>																				
+												</div>
+											</div>								
+										</div>
+										<!-- end date select -->
+										<div class="panel panel-default">
+											<div class="panel-heading" data-parent="#selectPeriodAccordion" data-toggle="collapse" data-target="#selectPeriodMonth">
+												Select Month
+											</div>
+											<div class="panel-collapse collapse in" id="selectPeriodMonth">
+												<div class="panel-body historyPeriodSelect" data-period="month" >
+													<div class="form-group">
+														<div class="input-group col-xs-10">													
+															<input id="monthSelected" class="form-control input" type="text" placeholder="mm/yyyy"></input>
+															<div class="input-group-addon btn btn-default btn-dark periodSelectBtn" id="monthSelectBtn">
+																<span>View Data</span>
+															</div>
+														</div>	
+													</div>
+													<p class="error-message collapse"><small><em class="text-danger">Please provide a valid input in format: <strong class="text-danger">mm/yyyy</strong> </em></small></p>																														
+												</div>
+											</div>								
+										</div>
+										<!-- end month select -->
+										<div class="panel panel-default">
+											<div class="panel-heading" data-parent="#selectPeriodAccordion" data-toggle="collapse" data-target="#selectPeriodYear">
+												Select Year
+											</div>
+											<div class="panel-collapse collapse" id="selectPeriodYear">
+												<div class="panel-body historyPeriodSelect" data-period="year" >
+													<div class="form-group">
+														<div class="input-group col-xs-10">					
+															<select id="yearSelected" class="form-control input" width="5em"></select>
+															<div class="input-group-addon btn btn-default btn-dark periodSelectBtn" id="yearSelectBtn">
+																<span>View Data</span>
+															</div>
+														</div>		
+													</div>
+													<p class="error-message collapse"><small><em class="text-danger">Please provide a valid input in format: <strong class="text-danger">yyyy</strong> </em></small></p>																		
+												</div>
+											</div>								
+										</div>
+										<!-- end year select -->
+									</div>
+									<!-- end #selectPeriodAccordion -->
+								</div>
+								<!-- end #selectPeriodAccordionContainer -->								
+							</div>
+							<!-- end select history period panel -->							
+
+						</div>
+						<!-- end #selectTypeAccordion -->						
+
+					</div>
+					<!-- end modal body -->					
+				</div>
+			</div>
+		</div>
+		<!-- end selectRangeModal -->
+
+		<!-- period select error modal -->
+		<div class="modal fade dashboard" id="periodError">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">						
+						<h3 class="text-danger"> <span class="glyphicon glyphicon-exclamation-sign text-danger"></span>&nbsp;Error</h3>						
+					</div>
+					<!-- end modal heading -->
+					<div class="modal-body">
+
+						<div class="panel">							
+							<div class="panel-body">
+								<p>There is no available data for the period you requested.</p>
+								<p>Please provide a valid period.</p>
+							</div>													
+						</div>
+
+					</div>
+					<!-- end modal body -->
+					<div class="modal-footer">
+						<div class="btn btn-default center-block" data-dismiss="modal">OK</div>
+					</div>		
+					<!-- end modal footer -->
+				</div>
+			</div>
+		</div>
+		<!-- end period select error modal -->
+
+
+		<!-- jQuery -->
+		<script src="libs/jquery.js"></script>
+
+		<!-- Bootstrap JS -->
+		<script src="http://wattsmart.ph/assets/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Bootstrap Datepicker JS for modal -->
+		<script src="libs/datepicker/js/bootstrap-datepicker.js"></script>
+
+		<!-- Main JS -->
+		<!-- <script src="http://wattsmart.ph/build/js/main.js"></script> -->
+
+
+		<!-- Load HighCharts JS -->
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+		<script src="http://code.highcharts.com/modules/drilldown.js"></script>
+
+		<!-- <script src="http://wattsmart.ph/build/js/realtime.js"></script> -->
+
+		<!-- Realtime Monitoring 
+		<script src="http://wattsmart.ph/assets/highcharts/highcharts.js"></script>
+		-->
+
+		<!--dashboard.js-->
+		<!-- <script src="http://wattsmart.ph/build/js/dashboard.js"></script> -->
+
+		<!--historical.js-->
+		<!-- <script src="http://wattsmart.ph/build/js/historical.js"></script> -->
+		<script src="js/dummyData.js"></script>
+		<script src="js/appliances.js"></script>
+		<script src="js/history.js"></script>		
+		<script src="js/realtime.js"></script>
+
+		<!-- date picker -->
+		<script src="libs/datepicker/js/bootstrap-datepicker.js"></script>
+
+		<!--userdata.js-->
+		<!-- <script src="http://wattsmart.ph/build/js/userdata.js"></script> -->
+
+		<!--datepicker.js-->
+		<script src="http://wattsmart.ph/assets/datepicker/js/bootstrap-datepicker.js"></script>
+
+
+
+		<!-- Pusher JS -->
+		<script src="http://wattsmart.ph/assets/js/pusher/pusher.js"></script>
+
+		<!-- <script src="http://wattsmart.ph/build/js/app.js"></script> -->
+
+
+		<!--OWL JS -->
+		<script src="http://wattsmart.ph/build/js/owl.carousel.js"></script>
+
+		<script src="http://wattsmart.ph/build/js/owl.js"></script>
+
+
+	</body>
+</html>
