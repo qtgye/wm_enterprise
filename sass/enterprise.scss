@@ -1,0 +1,97 @@
+.enterprise {
+
+
+	/*
+	TABLE HEADER
+	 */
+	#table-header {
+		background-color: #333;
+
+		.table-header-content {
+			display: table;
+			margin-left: -15px;
+			margin-right: -15px;
+
+			& > * {
+				display: table-cell;
+				float: none;
+			}
+		}		
+
+		// columns
+		[class^=col] {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			color: #ddd;
+			border-right: 1px solid #777;
+			font-size: 16px;
+			vertical-align: middle;
+			line-height: 1.3;
+			text-align: center;
+		}
+
+		.consumption-labels {
+			margin: 0;
+
+			td {
+				width: 25%;
+				height: 100%;
+				vertical-align: middle;
+			}
+		}
+
+		td {
+			color: #ddd;
+		}
+
+		.no-vertical-padding {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+
+	}
+
+
+	/*
+	TABLE DATA ROWS
+	 */
+	#table-data {
+
+		// columns
+		[class^=col] {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-right: 1px solid silver;		
+
+			&:last-child {
+				border: none;
+			}	
+		}
+
+		// columns with 1 width
+		.col-md-1 {
+			text-align: center;
+			font-weight: lighter;
+			color: #999;
+		}
+
+		.red {
+			color: red;
+			font-weight: bolder;
+		}
+
+		.green {
+			color: #a1bf36;
+			font-weight: bolder;
+		}
+	}
+
+
+	/*
+	HELPER CLASSES
+	 */
+	.text-center, .center-text {
+		text-align: center;
+	}
+
+}
