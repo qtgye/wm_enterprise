@@ -1,3 +1,11 @@
+/**
+ * VARIABLES
+ */
+
+$header-border: 1px solid #777;
+
+
+
 .enterprise {
 
 
@@ -6,11 +14,10 @@
 	 */
 	#table-header {
 		background-color: #333;
+		overflow: hidden;
 
 		.table-header-content {
 			display: table;
-			margin-left: -15px;
-			margin-right: -15px;
 
 			& > * {
 				display: table-cell;
@@ -19,29 +26,49 @@
 		}		
 
 		// columns
-		[class^=col] {
+		[class*=col] {
 			padding-top: 10px;
 			padding-bottom: 10px;
 			color: #ddd;
-			border-right: 1px solid #777;
+			border-right: $header-border;
 			font-size: 16px;
 			vertical-align: middle;
 			line-height: 1.3;
 			text-align: center;
 		}
 
+		& .col-xs-1,
+		& .col-md-1 {
+			padding: 10px 0;
+		}
+
+		& > [class^=col]:last-child {
+			border-right: none;
+		}
+
 		.consumption-labels {
 			margin: 0;
+			border-top: $header-border;
 
 			td {
 				width: 25%;
 				height: 100%;
 				vertical-align: middle;
+				border-right: $header-border;
+
+				&:last-child {
+					border-right: none;
+				}
 			}
+		}
+
+		table {
+			margin: 0;
 		}
 
 		td {
 			color: #ddd;
+			border: none;
 		}
 
 		.no-vertical-padding {
@@ -56,9 +83,12 @@
 	TABLE DATA ROWS
 	 */
 	#table-data {
+		position: relative;
+		min-height: 100px;
+		overflow: hidden;
 
 		// columns
-		[class^=col] {
+		[class*=col] {
 			padding-top: 10px;
 			padding-bottom: 10px;
 			border-right: 1px solid silver;		
@@ -83,6 +113,42 @@
 		.green {
 			color: #a1bf36;
 			font-weight: bolder;
+		}
+
+		// rows
+		.row {
+			opacity: 1;
+			position: relative;
+			top: 0px;
+			transition-property: opacity, top;
+			transition-duration: 0.3s;
+			transition-timing-function: ease;
+			margin: 0;
+
+			// incrementing delay for each row
+			@for $i from 0 through 50 {
+				&:nth-child(#{$i}) {
+					$delay : ($i * 0.15);
+					transition-delay: #{$delay}s;
+				}
+			}
+
+		}
+
+		// alerts
+		.alert {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			left: 0;
+		}
+
+		/*
+		STATES
+		 */
+		&.is-loading .row {
+			opacity: 0;
+			top: -15px;
 		}
 	}
 

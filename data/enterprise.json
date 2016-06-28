@@ -1,0 +1,38 @@
+[
+	{
+		"area" : "Makati",
+		"today" : 10,
+		"daily-average" : 15,
+		"month" : 50,
+		"monthly-average" : 65,
+		"highest-consuming" : "Refrigerator",
+		"appliances" : 5
+	},
+	{
+		"area" : "Quezon City",
+		"today" : 5,
+		"daily-average" : 7,
+		"month" : 30,
+		"monthly-average" : 45,
+		"highest-consuming" : "Air Conditioner",
+		"appliances" : 6
+	},
+	{
+		"area" : "Manila",
+		"today" : 25,
+		"daily-average" : 23,
+		"month" : 65,
+		"monthly-average" : 62,
+		"highest-consuming" : "Air Conditioner",
+		"appliances" : 12
+	},
+	{
+		"area" : "Pasig",
+		"today" : 40,
+		"daily-average" : 43,
+		"month" : 77,
+		"monthly-average" : 78,
+		"highest-consuming" : "Refrigerator",
+		"appliances" : 15
+	}
+]

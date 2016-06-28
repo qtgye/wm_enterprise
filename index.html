@@ -74,34 +74,34 @@
 			<!-- TABLE HEADER -->
 			<div id="table-header">
 				<div class="table-header-content">
-					<div class="col-md-3"></div>
-					<div class="col-md-4 no-vertical-padding">
+					<div class="col-xs-3">&nbsp;</div>
+					<div class="col-xs-4 no-vertical-padding">
 						<div class="row">
-							<div class="col-md-12">
-								Energy consumption (kWh)
-							</div>
-						</div>
-						<div class="row">
-							<table class="table consumption-labels">
+							<table class="table">
 								<tbody>
 									<tr>
+										<td colspan="4">
+											Energy consumption (kWh)
+										</td>
+									</tr>
+									<tr class="consumption-labels">
 										<td>Today</td>
-										<td>Daily ave.</td>
+										<td class="visible-md visible-lg">Daily ave.</td>
 										<td>This month</td>
-										<td>Monthly ave.</td>
+										<td class="visible-md visible-lg">Monthly ave.</td>
 									</tr>
 								</tbody>								
 							</table>
 							
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-xs-4 col-md-3">
 						Highest consuming appliance
 					</div>
-					<div class="col-md-1">
+					<div class="hidden-xs hidden-sm col-xs-1">
 						No. of appliances running now
 					</div>
-					<div class="col-md-1">
+					<div class="col-xs-1">
 						&nbsp;
 					</div>
 				</div>				
@@ -109,27 +109,55 @@
 			<!-- END TABLE HEADER -->
 			
 			<!-- TABLE DATA -->
-			<div id="table-data">
-				<div class="row" v-for="num in rows">
-					<div class="col-md-3">
-						<a href="dashboard.html">Area</a>
+			<div id="table-data" class="is-loading" v-bind:class="{ 'is-loading': isLoading, 'has-data' : hasData }">
+				
+				<!-- data rows -->
+				<div class="row" v-for="device in devicesData">
+					<div class="col-xs-3">
+						<a href="dashboard.html">{{ device.area }}</a>
 					</div>
-					<div class="col-md-1">1</div>
-					<div class="col-md-1">2</div>
-					<div class="col-md-1">3</div>
-					<div class="col-md-1">4</div>
-					<div class="col-md-3 text-center">
-						Appliance
+					<div class="col-xs-2 col-md-1" 
+						v-bind:class="{
+							'red' : device.today > device['daily-average'],
+							'green' : device.today < device['daily-average']
+						}">
+						{{ device.today }}
 					</div>
-					<div class="col-md-1">
-						10
+					<div class="hidden-xs hidden-sm col-md-1">{{ device['daily-average'] }}</div>
+					<div class="col-xs-2 col-md-1"
+						v-bind:class="{
+							'red' : device.month > device['monthly-average'],
+							'green' : device.month < device['monthly-average']
+						}">
+						{{ device['month'] }}
 					</div>
-					<div class="col-md-1">
+					<div class="hidden-xs hidden-sm col-md-1">{{ device['monthly-average'] }}</div>
+					<div class="col-xs-3 col-md-3 text-center">
+						{{ device['highest-consuming'] }}
+					</div>
+					<div class="col-xs-1">
+						{{ device.appliances }}
+					</div>
+					<div class="col-xs-1">
 						<a href="javascript:;">More</a>
 					</div>
 				</div>
+
+				<!-- alerts -->
+				<div v-show="isLoading" class="alert alert-primary text-center">
+					<i class="fa fa-spinner fa-pulse"></i> Fetching data...
+				</div>
+				<div v-show="!hasData && !isLoading && !fetchError" class="alert alert-warning text-center">
+					<i class="fa fa-warning"></i> No data available
+				</div>
+				<div v-show="fetchError" class="alert alert-danger text-center">
+					<i class="fa fa-warning"></i>
+					Unable to fetch data. Please refresh the page.
+					<p><small>If error persists, please contact customer support.</small></p>
+				</div>
+				
 			</div>
-			<!-- END TABLE DATA -->			
+			<!-- TABLE DATA END -->			
 
 		</div>
 		
@@ -166,6 +194,7 @@
 		<script src="//wattsmart.ph/build/js/owl.js"></script>
 
 
+
 		<!--
 		 VUE JS
 		 This is only for static presentation, should not be used on actual site
@@ -176,12 +205,51 @@
 		 * VUE Components
 		 * Again, this is for static presentation only
 		 */
-		 var component1 = new Vue({
+		 var devicesTable = new Vue({
+
+		 	// -- Data
 		 	data : {
-		 		rows : [1,2,3,4,5,6,7]
+		 		devicesData : [],
+		 		isLoading : true,
+		 		hasData : false,
+		 		fetchError : false
 		 	},
-		 	el : '#table-data'
-		 })
+
+		 	// -- Containing Element
+		 	el : '#table-data',
+
+		 	// -- Methods
+		 	methods : {
+
+		 		fetchData : function () {
+		 			this.isLoading = true;
+		 			$.ajax({
+		 				url : 'data/enterprise.json',
+		 				dataType : 'json',
+		 				success : function (data) {
+		 					setTimeout(function () {
+		 						this.devicesData = data;
+			 					this.hasData = ( data.constructor == Array && data.length > 0 ) ? true : false;
+			 					setTimeout(function () {		 						
+				 					this.isLoading = false;		
+			 					}.bind(this),50);
+		 					}.bind(this),2000);
+		 				}.bind(devicesTable),
+		 				error : function (xhr) {
+		 					setTimeout(function () {
+			 					this.hasData = false;
+			 					this.isLoading = false;
+			 					this.fetchError = true;
+		 					}.bind(this),2000);
+		 				}.bind(devicesTable)
+		 			});
+		 		}
+
+		 	}
+		 });
+
+		 devicesTable.fetchData();
+
 		</script>
 
 
