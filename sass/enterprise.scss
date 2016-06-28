@@ -18,6 +18,7 @@ $header-border: 1px solid #777;
 
 		.table-header-content {
 			display: table;
+			width: 100%;
 
 			& > * {
 				display: table-cell;
@@ -92,6 +93,11 @@ $header-border: 1px solid #777;
 			padding-top: 10px;
 			padding-bottom: 10px;
 			border-right: 1px solid silver;		
+
+			@media ( max-width: 767px ) {
+				overflow-y: auto;
+				white-space: nowrap;
+			}
 
 			&:last-child {
 				border: none;
